@@ -24,7 +24,9 @@ ProductService.getProducts()
       <div v-if="isLoading">
         <div class="loader">Loading products...</div>
       </div>
-      <product-list v-else :products="products"></product-list>
+      <div v-else>
+        <product-list :products="products"></product-list>
+      </div>
     </section>
 </template>
 

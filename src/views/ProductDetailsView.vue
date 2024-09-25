@@ -21,8 +21,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import ProductService from '@/services/ProductService.js'
+import { computed  } from 'vue'
+import { useProductStore } from '@/stores/product';
+
+const productStore = useProductStore();
+
+const product = computed(() => productStore.product);
+const isLoading = computed(() => productStore.isLoading);
+const errorMessage = computed(() => productStore.errorMessage);
 
 const props = defineProps(
     {
@@ -33,20 +39,7 @@ const props = defineProps(
     }
 )
 
-const product = ref(null);
-const errorMessage = ref(null);
-const isLoading = ref(false);
-
-isLoading.value = true;
-
-ProductService.getProduct(props.id)
-    .then(data => {
-        product.value = data
-    })
-    .catch(error => {
-        errorMessage.value = 'There was an error getting the product from server, ' + error;
-    })
-    .finally(() => isLoading.value = false)
+productStore.fetchProduct(props.id)
 </script>
 
 <style lang="css" scoped>

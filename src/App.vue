@@ -1,5 +1,9 @@
 <script setup>
+import { useUserStore } from '@/stores/user';
 
+const userStore = useUserStore();
+
+userStore.checkPreviousLogin();
 </script>
 
 <template>
@@ -9,6 +13,9 @@
       <router-link to="/">Home</router-link>
       <router-link to="/products">Products</router-link>
       <router-link to="/about">About</router-link>
+      <router-link to="/admin">Admin</router-link>
+      <router-link v-if="!userStore.isLoggedIn" to="/login">Login</router-link>
+      <a v-else @click="userStore.logout()">Logout</a>
     </nav>
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">

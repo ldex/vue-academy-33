@@ -3,6 +3,21 @@ const resourceName = 'products';
 
 export default {
 
+  deleteProduct(product) {
+    const url = `${baseURL}/${resourceName}/${product.id}`;
+    const options = {
+      method: "DELETE",
+    };
+
+    return fetch(url, options)
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => {
+        console.error("API Error while deleting product, " + error);
+        return Promise.reject(error);
+      });
+  },
+
   insertProduct(product) {
     const url = `${baseURL}/${resourceName}`;
     const options = {

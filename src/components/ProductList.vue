@@ -10,7 +10,7 @@
     </fieldset>
     <ul class="products">
       <li v-for="product in sortedFilteredPaginatedProducts" :title="JSON.stringify(product)" :key="product.id"
-        :class='{ discontinued: product.discontinued, selected: selectedProduct?.id === product.id }'
+        :class='{ discontinued: product.discontinued }'
         @click="onSelect(product)">
             <slot :product="product">
               {{ product.price }}
